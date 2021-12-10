@@ -41,12 +41,12 @@
         <td><%=rs.getString("gwriter")%></td>
         <th class="left">전화번호</th>
         <td><%=rs.getString("gphone")%></td>
-        <th class="left">작성시간</th>
-        <td><%=rs.getString("gdate")%></td>
     </tr>
     <tr>
         <th class="left">제목</th>
-        <td colspan="3"><%=rs.getString("gtitle")%></td>
+        <td><%=rs.getString("gtitle")%></td>
+        <th class="left">작성시간</th>
+        <td><%=rs.getString("gdate")%></td>
     </tr>
     <tr>
         <th class="left">내용</th>
@@ -59,19 +59,15 @@
     </tbody>
 </table>
 <%
-    if (login.equals(rs.getString("gwriter"))){
+    if (rs.getString("gwriter").equals(login)){
 
 %>
 <a href="noticeEdit.jsp?c=<%=rs.getString("gno")%>">수정</a>
 <a href="noticeDelete.jsp?c=<%=rs.getString("gno")%>">삭제</a>
-<a href="notice.jsp">목록</a>
-<%
-    }else {
-%>
-<a href="notice.jsp">목록</a>
 <%
     }
 %>
+<a href="notice.jsp">목록</a>
 </body>
 </html>
 <%

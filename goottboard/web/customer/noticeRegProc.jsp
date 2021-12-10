@@ -11,31 +11,26 @@
 <body>
 <h3>noticeRegProc.jsp</h3>
 <%
-
     request.setCharacterEncoding("utf-8");
     String login = request.getParameter("login");
     String title = request.getParameter("title");
     String content = request.getParameter("content");
-    String depart = request.getParameter("depart");
-    String file = request.getParameter("file");
 
     Connection con = DBCon.getConnection();
-    PreparedStatement pstmt = con.prepareStatement("select name, phone from GUROUSER where ID=?");
+    PreparedStatement pstmt = con.prepareStatement("select name, tel from GOOTTUSER where ID=?");
     pstmt.setString(1, login);
     ResultSet rs = pstmt.executeQuery();
     rs.next();
     String name = rs.getString("name");
-    String phone = rs.getString("phone");
+    String tel = rs.getString("tel");
 
 
-    pstmt = con.prepareStatement("insert into GUROBOARD(gno, gtitle, gdepart, gwriter, gphone, gcontent, gdate, gfile)" +
-            "values (BOARD_GNO.nextval,?,?,?,?,?,sysdate,?)");
-    pstmt.setString(1,title);
-    pstmt.setString(2,depart);
-    pstmt.setString(3,name);
-    pstmt.setString(4,phone);
-    pstmt.setString(5,content);
-    pstmt.setString(6,file);
+    pstmt = con.prepareStatement("insert into EDUGOOTT(eno, eid, etitle, ememo, etel, edate)" +
+            " values (EDUGOOTT_ENOUP.nextval,?,?,?,?,sysdate)");
+    pstmt.setString(1,name);
+    pstmt.setString(2,title);
+    pstmt.setString(3,content);
+    pstmt.setString(4,tel);
     pstmt.executeUpdate();
     response.sendRedirect("notice.jsp");
 %>

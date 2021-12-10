@@ -13,34 +13,28 @@
 <h3>Notice.jsp</h3>
 <%
     Connection con = DBCon.getConnection();
-    PreparedStatement pstmt = con.prepareStatement("select * from GUROBOARD order by GNO desc");
+    PreparedStatement pstmt = con.prepareStatement("select * from EDUGOOTT order by ENO desc");
     ResultSet rs = pstmt.executeQuery();
 %>
 
 <table width="800" border="1">
     <tr>
         <td>번호</td>
-        <td>제목</td>
-        <td>부서</td>
         <td>작성자</td>
+        <td>제목</td>
         <td>작성일</td>
-        <td>조회수</td>
-        <td>파일</td>
     </tr>
     <%
         while (rs.next()){
-            Date gdate = rs.getDate("gdate");
+            Date gdate = rs.getDate("edate");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String date = format.format(gdate);
     %>
     <tr>
-        <td><%=rs.getInt("GNO")%></td>
-        <td><a href="noticeDetail.jsp?c=<%=rs.getString("gno")%>"><%=rs.getString("gtitle")%></a></td>
-        <td><%=rs.getString("gdepart")%></td>
-        <td><%=rs.getString("gwriter")%></td>
+        <td><%=rs.getInt("eNO")%></td>
+        <td><%=rs.getString("eid")%></td>
+        <td><a href="noticeDetail.jsp?c=<%=rs.getString("eno")%>"><%=rs.getString("etitle")%></a></td>
         <td><%=date%></td>
-        <td><%=rs.getInt("ghit")%></td>
-        <td><%=rs.getString("gfile")%></td>
     </tr>
     <%
         }

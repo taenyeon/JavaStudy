@@ -12,29 +12,31 @@
 <body>
 <%
     request.setCharacterEncoding("utf-8");
-    int gno = Integer.parseInt(request.getParameter("c"));
+    int eno = Integer.parseInt(request.getParameter("c"));
     Connection con = DBCon.getConnection();
-    PreparedStatement pstmt = con.prepareStatement("select MAX(GNO)as max from GUROBOARD");
+    PreparedStatement pstmt = con.prepareStatement("select MAX(eNO)as max from EDUGOOTT");
     ResultSet rs = pstmt.executeQuery();
     rs.next();
 
     int max = rs.getInt("max");
-    pstmt = con.prepareStatement("delete from GUROBOARD where gno=?");
-    pstmt.setInt(1,gno);
+    pstmt = con.prepareStatement("delete from EDUGOOTT where eno=?");
+    pstmt.setInt(1,eno);
     int del = pstmt.executeUpdate();
 
-    if (max>gno){
-        pstmt = con.prepareStatement("update GUROBOARD set GNO = gno-1 where GNO >?");
-        pstmt.setInt(1,gno);
+    if (max>eno){
+        pstmt = con.prepareStatement("update EDUGOOTT set eNO = eno-1 where eNO >?");
+        pstmt.setInt(1,eno);
         pstmt.executeUpdate();
 
     }
-    pstmt = con.prepareStatement("ALTER SEQUENCE BOARD_GNO INCREMENT BY -1");
-    pstmt.executeUpdate();
-    pstmt = con.prepareStatement("select BOARD_GNO.nextval from dual");
-    pstmt.executeUpdate();
-    pstmt = con.prepareStatement("ALTER SEQUENCE BOARD_GNO INCREMENT BY 1");
-    pstmt.executeUpdate();
+    if (max ==1) {
+        pstmt = con.prepareStatement("ALTER SEQUENCE EDUGOOTT_ENOUP INCREMENT BY -1");
+        pstmt.executeUpdate();
+        pstmt = con.prepareStatement("select EDUGOOTT_ENOUP.nextval from dual");
+        pstmt.executeUpdate();
+        pstmt = con.prepareStatement("ALTER SEQUENCE EDUGOOTT_ENOUP INCREMENT BY 1");
+        pstmt.executeUpdate();
+    }
 
     if (del>0)
         response.sendRedirect("notice.jsp");

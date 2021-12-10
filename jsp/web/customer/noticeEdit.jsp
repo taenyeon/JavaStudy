@@ -39,14 +39,14 @@
         <td><%=rs.getString("gwriter")%></td>
         <th class="left">전화번호</th>
         <td><%=rs.getString("gphone")%></td>
-        <th class="left">작성시간</th>
-        <td><%=rs.getString("gdate")%></td>
     </tr>
     <tr>
         <th class="left">제목</th>
-        <td colspan="3">
+        <td>
             <input type="text" class="inp" name="title" value="<%=rs.getString("gtitle")%>">
         </td>
+        <th class="left">작성시간</th>
+        <td><%=rs.getString("gdate")%></td>
     </tr>
     <tr>
         <th class="left">내용</th>

@@ -1,0 +1,54 @@
+body{
+    text-align: center;
+}
+
+table{
+    border: 2px solid #ccc;
+    margin: auto;
+}
+tr,td{
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+table,tr,td,th{
+    padding: 5px;
+}
+table.twidth{
+    width: 600px;
+}
+caption{
+    background: #ccc;
+    height: 20px;
+    padding: 10px 0;
+    font-family: 맑은고딕;
+    font-weight: bold;
+    color: #898989;
+}
+#content{
+    border: 1px solid #ccc;
+    height: 100px;
+    font-size: 15px;
+}
+.left{
+    text-align: left;
+}
+.txt{
+    width: 380px;
+    height: 150px;
+    padding: 5px;
+    margin: 0;
+    background-color: #eee;
+}
+a{
+    margin: 20px 20px;
+}
+.inp{
+    margin: 0;
+    padding: 5px;
+    width: 180px;
+    background-color: #eee;
+}
+div{
+    margin-left: 100px;
+
+}
