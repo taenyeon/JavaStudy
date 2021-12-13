@@ -16,7 +16,9 @@
     ID : <input type="text" name="id" id="id"> <br>
     PASSWORD : <input type="password" name="pwd" id="pwd"> <br>
     NAME : <input type="text" name="name" id="name"> <br>
+    adress : <input type="text" name="adress" id="adress"> <br>
     tel : <input type="text" name="tel" id="tel"> <br>
+    birthday(YYYY-MM-DD) : <input type="text" name="birth" id="birth"> <br>
     <input type="submit" value="join">
 </form>
 </body>

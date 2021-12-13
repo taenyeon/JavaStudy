@@ -5,6 +5,8 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,33 +32,52 @@
     // 중복 처리를 한 이름을 담는 코드
     filename = multipartRequest.getFilesystemName(str);
 
-    String title = multipartRequest.getParameter("title");
-    String content = multipartRequest.getParameter("content");
+    String code = multipartRequest.getParameter("code");
+    String name = multipartRequest.getParameter("name");
     String login = multipartRequest.getParameter("c");
-    System.out.println("title = " + title);
-    System.out.println("filename = " + filename);
-    System.out.println("content = " + content);
-    System.out.println("login = " + login);
+    int cost = Integer.parseInt(multipartRequest.getParameter("cost"));
+    int category = Integer.parseInt(multipartRequest.getParameter("category"));
+    String content = multipartRequest.getParameter("content");
+    //옵션들
+    List<String> options1 = new ArrayList<>();
+    List<String> options2 = new ArrayList<>();
+    for (int i=1; i<4; i++){
+        options1.add(multipartRequest.getParameter("option_child1_"+i));
+        options2.add(multipartRequest.getParameter("option_child2_"+i));
+    }
     Connection con = DBCon.getConnection();
-    PreparedStatement pstmt = con.prepareStatement("select name from SURVEYUSER where ID=?");
-    pstmt.setString(1, login);
-    ResultSet rs = pstmt.executeQuery();
-    rs.next();
-    String name = rs.getString("name");
-
-    pstmt = con.prepareStatement("insert into SURVEYGG(no, id, title, CONTENT, WRITEDATE,FILEPATH,FILENAME)" +
-            " values (SURVEYGG_NOUP.nextval,?,?,?,sysdate,?,?)");
-    pstmt.setString(1, name);
-    pstmt.setString(2, title);
-    pstmt.setString(3, content);
+    PreparedStatement pstmt = con.prepareStatement("insert into ITEM(item_code, member_id, category_code, item_name, item_price, item_image, item_info) " +
+            "VALUES (?,?,?,?,?,?,?)");
+    pstmt.setString(1,code);
+    pstmt.setString(2,login);
+    pstmt.setInt(3,category);
+    pstmt.setString(4,name);
+    pstmt.setInt(5,cost);
     if (filename != null){
-    pstmt.setString(4,path+ filename);
+    pstmt.setString(6,filename);
 
     }else {
-        pstmt.setString(4,null);
+        pstmt.setString(6,null);
     }
-    pstmt.setString(5,filename);
+    pstmt.setString(7, content);
     pstmt.executeUpdate();
+    for (String option : options1){
+        if (option != null){
+
+    pstmt = con.prepareStatement("insert into ITEM_OPTIONS (option_code, item_code, option_name) VALUES (OPTION_CODE_UP.nextval,?,?)");
+    pstmt.setString(1,code);
+    pstmt.setString(2,option);
+        pstmt.executeQuery();
+        }
+    }
+    for (String option : options2){
+        if (option != null){
+        pstmt = con.prepareStatement("insert into ITEM_CHILDOPTIONS (childoption_code, option_code, childoption_name) VALUES (CHILDOPTION_CODE_UP.nextval,(select ITEM_OPTIONS.OPTION_CODE from ITEM_OPTIONS where ITEM_CODE=?),?)");
+        pstmt.setString(1,code);
+        pstmt.setString(2,option);
+        pstmt.executeQuery();
+        }
+    }
     response.sendRedirect("notice.jsp");
 %>
 

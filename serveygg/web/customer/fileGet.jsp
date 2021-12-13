@@ -16,10 +16,13 @@
 <body>
 <%
     request.setCharacterEncoding("utf-8");
+    //apple.jpg
     // 파일 이름
     String filename = request.getParameter("filename");
+    //  /web/files/
     // 폴더 경로
     String path = request.getSession().getServletContext().getRealPath("/files/");
+    //  /web/files/apple.jpg
     // 파일의 절대 경로
     String realPath = path+filename;
     // 절대 경로를 통해 파일 호출

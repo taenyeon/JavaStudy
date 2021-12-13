@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class MemberJoinProcController implements Controller {
     @Override
@@ -20,7 +23,9 @@ public class MemberJoinProcController implements Controller {
             String id = request.getParameter("id");
             String pwd = request.getParameter("pwd");
             String name = request.getParameter("name");
+            String adress = request.getParameter("adress");
             String tel = request.getParameter("tel");
+            String birth = request.getParameter("birth");
 
             SHA256 sha = SHA256.getInsatnce();
             String shPwd = sha.getSha256(pwd.getBytes());
@@ -32,11 +37,14 @@ public class MemberJoinProcController implements Controller {
             String bcPwd = BCrypt.hashpw(shPwd,BCrypt.gensalt());
 
 
-            PreparedStatement pstmt = con.prepareStatement("insert into SURVEYUSER(id, pwd, name, tel) values (?,?,?,?)");
+            PreparedStatement pstmt = con.prepareStatement("insert into MEMBER_INFO(member_id, member_pwd, member_name, member_adress, member_tel, member_birth)" +
+                    " values (?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'))");
             pstmt.setString(1,id);
             pstmt.setString(2,bcPwd);
             pstmt.setString(3,name);
-            pstmt.setString(4,tel);
+            pstmt.setString(4,adress);
+            pstmt.setString(5,tel);
+            pstmt.setString(6,birth);
             pstmt.executeUpdate();
 
             response.sendRedirect("/member/index.jsp");

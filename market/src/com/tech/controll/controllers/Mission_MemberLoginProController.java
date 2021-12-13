@@ -24,7 +24,7 @@ public class Mission_MemberLoginProController implements Controller {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('아이디 또는 비밀번호를 입력하지 않았습니다.'); location.href='index.jsp'</script>");
         } else {
-            PreparedStatement pstmt = con.prepareStatement("select pwd from SURVEYUSER where ID = ?");
+            PreparedStatement pstmt = con.prepareStatement("select MEMBER_PWD from MEMBER_INFO where MEMBER_ID = ?");
             pstmt.setString(1, id);
             ResultSet rs = null;
             try {
@@ -34,7 +34,7 @@ public class Mission_MemberLoginProController implements Controller {
             }
             String bcpass = null;
             if (rs.next()) {
-                bcpass = rs.getString("pwd");
+                bcpass = rs.getString("MEMBER_PWD");
                 SHA256 sha = SHA256.getInsatnce();
                 String shapass = sha.getSha256(pwd.getBytes());
                 if (BCrypt.checkpw(shapass, bcpass)) {

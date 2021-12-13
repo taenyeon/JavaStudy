@@ -3,7 +3,7 @@ package com.tech.controll.controllers;
 import com.tech.crypt.work.BCrypt;
 import com.tech.crypt.work.SHA256;
 import com.tech.db.DBCon;
-import com.tech.db.servey_member;
+import com.tech.db.market_member;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -21,26 +21,27 @@ public class Mission_MemberInfoPwdCheckController implements Controller {
         request.setCharacterEncoding("utf-8");
         String pwd = request.getParameter("pwd");
         String login = request.getParameter("login");
-        List<servey_member> members = new ArrayList<>();
+        List<market_member> members = new ArrayList<>();
         Connection conn = DBCon.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement("select pwd from SURVEYUSER where ID = ?");
+        PreparedStatement pstmt = conn.prepareStatement("select MEMBER_PWD from MEMBER_INFO where MEMBER_ID = ?");
         pstmt.setString(1, login);
         ResultSet rs = pstmt.executeQuery();
         rs.next();
-        String bcpass = rs.getString("pwd");
+        String bcpass = rs.getString("MEMBER_PWD");
         SHA256 sha = SHA256.getInsatnce();
         String shapass = sha.getSha256(pwd.getBytes());
 
 
         if (BCrypt.checkpw(shapass, bcpass)) {
-            pstmt = conn.prepareStatement("select name,tel from SURVEYUSER where ID = ?");
+            pstmt = conn.prepareStatement("select MEMBER_ADRESS,MEMBER_TEL,MEMBER_BIRTH from MEMBER_INFO where MEMBER_ID = ?");
             pstmt.setString(1, login);
            rs = pstmt.executeQuery();
             while (rs.next()) {
-                servey_member member = new servey_member();
-                member.setID(login);
-                member.setName(rs.getString("name"));
-                member.setTel(rs.getString("tel"));
+                market_member member = new market_member();
+                member.setAdress(rs.getString("MEMBER_ADRESS"));
+                member.setTel(rs.getString("MEMBER_TEL"));
+                        String[] realBirth = rs.getString("MEMBER_BIRTH").split(" ");
+                member.setBirth(realBirth[0]);
                 members.add(member);
             }
             request.setAttribute("members", members);

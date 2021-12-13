@@ -11,11 +11,12 @@ tr,td{
     border: none;
 }
 table,tr,td,th{
-    padding: 10px;
+    padding: 5px;
 }
 table.twidth{
-    width: 90%;
+    width: 80%;
     height: 500px;
+    margin: auto;
 }
 caption{
     height: 20px;
@@ -26,6 +27,7 @@ caption{
 #content{
     border: 1px solid #ccc;
     height: 100px;
+    width: 100%;
     font-size: 15px;
 }
 .left{

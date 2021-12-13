@@ -13,12 +13,11 @@
 <body>
 <h3>noticeRegProc.jsp</h3>
 <%
-
     String path = request.getSession().getServletContext().getRealPath("/files/");
     int size = 15 * 1024 * 1024; // 15MB
     String str, filename, original_filename;
     // 중복 정책을 따라서 중복된 파일 이름이 있을경우, 뒤에 숫자를 붙이게 한다.
-    MultipartRequest multipartRequest = new MultipartRequest(request, path, size, "utf-8", new DefaultFileRenamePolicy());
+    MultipartRequest multipartRequest = new MultipartRequest(request, path, size,"utf-8", new DefaultFileRenamePolicy());
     // 파일들을 모두 files에 담는다.
     Enumeration files = multipartRequest.getFileNames();
     // nextElement() 메소드를 통해서 file을 가져온다. -> 해당 예제에서는 파일을 한개만 업로드 할 수 있도록 하였기 때문에 한번만 실행하였다.
