@@ -61,21 +61,21 @@
     }
     pstmt.setString(7, content);
     pstmt.executeUpdate();
-    for (String option : options1){
-        if (option != null){
-
+    for (String childOption1 : options1){
+        if (childOption1 != null){
     pstmt = con.prepareStatement("insert into ITEM_OPTIONS (option_code, item_code, option_name) VALUES (OPTION_CODE_UP.nextval,?,?)");
     pstmt.setString(1,code);
-    pstmt.setString(2,option);
+    pstmt.setString(2,childOption1);
         pstmt.executeQuery();
+        for (String childOption2 : options2){
+            if (childOption2 != null){
+                pstmt = con.prepareStatement("insert into ITEM_CHILDOPTIONS (childoption_code, option_code, childoption_name) VALUES (CHILDOPTION_CODE_UP.nextval,(select ITEM_OPTIONS.OPTION_CODE from ITEM_OPTIONS where ITEM_CODE=? and OPTION_NAME=?),?)");
+                pstmt.setString(1,code);
+                pstmt.setString(2,childOption1);
+                pstmt.setString(3,childOption2);
+                pstmt.executeQuery();
+            }
         }
-    }
-    for (String option : options2){
-        if (option != null){
-        pstmt = con.prepareStatement("insert into ITEM_CHILDOPTIONS (childoption_code, option_code, childoption_name) VALUES (CHILDOPTION_CODE_UP.nextval,(select ITEM_OPTIONS.OPTION_CODE from ITEM_OPTIONS where ITEM_CODE=?),?)");
-        pstmt.setString(1,code);
-        pstmt.setString(2,option);
-        pstmt.executeQuery();
         }
     }
     response.sendRedirect("notice.jsp");

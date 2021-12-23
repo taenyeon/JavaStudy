@@ -23,7 +23,7 @@
 %>
 <h2>Info</h2>
 <form action="/member/userInfoPro.do">
-    NAME : <input type="text" name="name" id="name" value="<%=adress%>">
+    ADRESS : <input type="text" name="name" id="name" value="<%=adress%>">
     PHONE : <input type="tel" name="phone" id="phone" value="<%=tel%>">
     BIRTHDAY : <input type="text" name="birth" id="birth" value="<%=birth%>">
     <input type="hidden" name="c" value="<%=login%>">

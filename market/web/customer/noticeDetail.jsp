@@ -5,74 +5,68 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/member/header.jsp" %>
+<script type="text/javascript" src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+<script type="text/javascript" src="/js/option.js"></script>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../css/nstyle.css">
 </head>
 <body>
 <%
-    String no = request.getParameter("c");
+    String code = request.getParameter("code");
     Connection con = DBCon.getConnection();
-    PreparedStatement pstmt = con.prepareStatement("update SURVEYGG set HIT= HIT+1 where NO = ?");
-    pstmt.setString(1, no);
-    pstmt.executeUpdate();
-
-    pstmt = con.prepareStatement("select * from SURVEYGG where NO = ?");
-    pstmt.setString(1, no);
+    PreparedStatement pstmt = con.prepareStatement("select * from item where ITEM_CODE = ?");
+    pstmt.setString(1, code);
 
     ResultSet rs = pstmt.executeQuery();
     rs.next();
-    Date gdate = rs.getDate("writedate");
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    String date = format.format(gdate);
 %>
-
-<div style="border: 1px solid #ccc; height: 50px ">
-<span class="title"><%=rs.getString("title")%></span>
-<span class="date"><%=date%></span>
+<section style="width: 80%; margin: auto">
+<div style="width:400px; height:500px; border:1px solid red; float:left; margin: auto">
+    <img src="<%="/files/"+rs.getString("item_image")%>" alt="" width="400px" height="500px">
 </div>
-
-<table class="twidth">
-    <colgroup>
-        <col width="8%">
-        <col width="100%">
-    </colgroup>
-    <tbody>
-    <tr style="height: 10%">
-    <%
-        if (rs.getString("filename") != null) {
-    %>
-        <th class="left">첨부파일</th>
-        <td><a href="fileGet.jsp?filename=<%=rs.getString("filename")%>" class="left"
-               download><%=rs.getString("filename")%>
-        </a></td>
-    <%
-    } else {
-    %>
-        <th class="left">첨부파일</th>
-        <td><a href="#">없음</a></td>
-    <%
-        }
-    %>
-    </tr>
-    <tr style="height: 90%">
-        <td colspan="3" class="content">
-            <pre><%=rs.getString("content")%></pre>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<%
-    if (rs.getString("id").equals(login)) {
-
-%>
-<a href="noticeEdit.jsp?c=<%=rs.getString("no")%>">수정</a>
-<a href="noticeDelete.jsp?c=<%=rs.getString("no")%>">삭제</a>
-<%
-    }
-%>
-<a href="notice.jsp">목록</a>
+<div style="width:400px; height:500px; border:1px solid green; float:left; margin: auto">
+    <h4 style="text-align: left"><%=rs.getString("item_name")+" "+rs.getString("item_code")%></h4>
+    <hr>
+    <table>
+        <tr>
+        <th>판매가격</th>
+        <td><%=rs.getString("item_price")%></td>
+        </tr>
+    </table>
+    <hr>
+    <h5 style="text-align: left">기본옵션</h5>
+    <select name="selOp1" id="selOp1" style="width: 100px;" >
+        <%
+            pstmt = con.prepareStatement("select * from ITEM_OPTIONS where ITEM_CODE=?");
+            pstmt.setString(1,code);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+        %>
+        <option value="<%=rs.getString("option_code")%>"><%=rs.getString("option_name")%></option>
+        <%
+            }
+        %>
+            <select name="selOp2" id="selOp2" style="width: 100px;" disabled>
+        <%
+            pstmt = con.prepareStatement("select * from ITEM_CHILDOPTIONS inner join ITEM_OPTION on ITEM_OPTION.OPTION_CODE = ITEM_CHILDOPTION.OPTION_CODE where ITEM_OPTION.ITEM_CODE = ?");
+            pstmt.setString(1,code);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+        %>
+        <option value="<%=rs.getString("childoption_code")%>"><%=rs.getString("childoption_name")%></option>
+        <%
+            }
+        %>
+    </select>
+</div>
+</section>
+<div style="clear: both"></div>
+<div style="text-align: center">
+    <a href="noticeEdit.jsp?c=<%=code%>">수정</a>
+    <a href="noticeDelete.jsp?c=<%=code%>">삭제</a>
+    <a href="notice.jsp">목록</a>
+</div>
 </body>
 </html>
 <%

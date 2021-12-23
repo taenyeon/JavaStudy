@@ -37,7 +37,7 @@
         <tr>
             <th class="left">내용</th>
             <td colspan="3" id="content">
-                <textarea name="content" class="txt"></textarea>
+                <textarea rows="10" cols="20" wrap="hard" name="content" class="txt"></textarea>
             </td>
         </tr>
         <tr>
