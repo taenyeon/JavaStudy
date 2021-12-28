@@ -8,7 +8,6 @@ create table jobdj_ty(
                          post_date date,
                          end_date date
 );
-
 insert into jobdj_ty values (1,
                              '2021년 CS Specialist /AS/RA Specialist 채용',
                              '경력:신입경력(3년이상),학력:대졸이상,우대:영어가능자',

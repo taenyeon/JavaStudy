@@ -15,7 +15,7 @@ public class Mission_MemberInfoProController implements Controller{
         String tel = request.getParameter("tel");
         String login = request.getParameter("c");
         Connection con = DBCon.getConnection();
-        PreparedStatement pstmt = con.prepareStatement("update GOOTTUSER set name=?,tel=? where ID=?");
+        PreparedStatement pstmt = con.prepareStatement("update SURVEYUSER set name=?,tel=? where ID=?");
         pstmt.setString(1,name);
         pstmt.setString(2,tel);
         pstmt.setString(3,login);

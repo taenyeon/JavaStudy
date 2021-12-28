@@ -1,22 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1><a href="/member">Main</a></h1>
+<h1><a href="/GuroMember">Main</a></h1>
 <div>
 <%
     String login = (String)session.getAttribute("login");
     if (login == null){
 
 %>
-<a href="/member/loginForm.do" class="link">login</a> |
+<a href="/GuroMember/loginForm.do" class="link">login</a> |
 <%
     }else {
 %>
 <a style="font-size: 22px"><b><%=login%></b> 님 환영합니다.</a><br>
-    <a href="/member/userInfo.do" class="link">user_info</a> |
-    <a href="/member/logoutPro.do" class="link">logout</a> |
+    <a href="/GuroMember/userInfo.do" class="link">user_info</a> |
+    <a href="/GuroMember/logoutPro.do" class="link">logout</a> |
     <%
     }
 %>
-<a href="/member/joinForm.do" class="link">join</a>
+<a href="/GuroMember/joinForm.do" class="link">join</a>
 </div>
 <hr>
 <style>

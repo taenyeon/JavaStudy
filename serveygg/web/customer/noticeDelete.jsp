@@ -4,7 +4,7 @@
 <%@ page import="com.tech.db.DBCon" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.io.File" %>
-<%@include file="/member/header.jsp" %>
+<%@include file="/GuroMember/header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

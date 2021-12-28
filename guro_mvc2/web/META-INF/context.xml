@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource
+            auth="Container"
+            driverClassName ="oracle.jdbc.driver.OracleDriver"
+            url="jdbc:oracle:thin:@192.168.35.5:1521:xe"
+            username="study"
+            password="1234"
+            name="jdbc/noticeXe"
+            type="javax.sql.DataSource"
+            initialSize="5"
+            minIdle="5"
+            maxIdle="50"
+            maxActive="50"
+            maxWait="1000"
+    />
+</Context>

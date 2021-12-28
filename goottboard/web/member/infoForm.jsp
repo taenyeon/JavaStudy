@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-<form action="/member/userInfoPwdCheck.do" method="post">
+<form action="/GuroMember/userInfoPwdCheck.do" method="post">
     <h2>Check </h2><br>
     PASSWORD : <input type="password" name="pwd" id="pwd">
     <input type="hidden" name="login" id="login" value="<%=login%>">

@@ -3,7 +3,7 @@ package com.tech.controll.controllers;
 import com.tech.crypt.work.BCrypt;
 import com.tech.crypt.work.SHA256;
 import com.tech.db.DBCon;
-import com.tech.db.goott_member;
+import com.tech.db.servey_member;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +21,9 @@ public class Mission_MemberInfoPwdCheckController implements Controller {
         request.setCharacterEncoding("utf-8");
         String pwd = request.getParameter("pwd");
         String login = request.getParameter("login");
-        List<goott_member> members = new ArrayList<>();
+        List<servey_member> members = new ArrayList<>();
         Connection conn = DBCon.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement("select pwd from GOOTTUSER where ID = ?");
+        PreparedStatement pstmt = conn.prepareStatement("select pwd from SURVEYUSER where ID = ?");
         pstmt.setString(1, login);
         ResultSet rs = pstmt.executeQuery();
         rs.next();
@@ -33,11 +33,11 @@ public class Mission_MemberInfoPwdCheckController implements Controller {
 
 
         if (BCrypt.checkpw(shapass, bcpass)) {
-            pstmt = conn.prepareStatement("select name,tel from GOOTTUSER where ID = ?");
+            pstmt = conn.prepareStatement("select name,tel from SURVEYUSER where ID = ?");
             pstmt.setString(1, login);
            rs = pstmt.executeQuery();
             while (rs.next()) {
-                goott_member member = new goott_member();
+                servey_member member = new servey_member();
                 member.setID(login);
                 member.setName(rs.getString("name"));
                 member.setTel(rs.getString("tel"));

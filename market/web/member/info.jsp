@@ -15,14 +15,14 @@
 </head>
 <body>
 <%
-    List<market_member> members = (List<market_member>) request.getAttribute("members");
-    for (market_member member : members) {
-        String adress = member.getAdress();
-        String birth = member.getBirth();
-        String tel = member.getTel();
+    List<market_member> guroMembers = (List<market_member>) request.getAttribute("guroMembers");
+    for (market_member GuroMember : guroMembers) {
+        String adress = GuroMember.getAdress();
+        String birth = GuroMember.getBirth();
+        String tel = GuroMember.getTel();
 %>
 <h2>Info</h2>
-<form action="/member/userInfoPro.do">
+<form action="/GuroMember/userInfoPro.do">
     ADRESS : <input type="text" name="name" id="name" value="<%=adress%>">
     PHONE : <input type="tel" name="phone" id="phone" value="<%=tel%>">
     BIRTHDAY : <input type="text" name="birth" id="birth" value="<%=birth%>">

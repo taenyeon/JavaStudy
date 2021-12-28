@@ -32,7 +32,7 @@ public class Mission_MemberJoinProController implements Controller{
             String bcPwd = BCrypt.hashpw(shPwd,BCrypt.gensalt());
 
 
-            PreparedStatement pstmt = con.prepareStatement("insert into GOOTTUSER(id, pwd, name, tel) values (?,?,?,?)");
+            PreparedStatement pstmt = con.prepareStatement("insert into SURVEYUSER(id, pwd, name, tel) values (?,?,?,?)");
             pstmt.setString(1,id);
             pstmt.setString(2,bcPwd);
             pstmt.setString(3,name);

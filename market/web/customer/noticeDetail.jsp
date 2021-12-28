@@ -4,7 +4,7 @@
 <%@ page import="java.io.FileInputStream" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/member/header.jsp" %>
+<%@include file="/GuroMember/header.jsp" %>
 <script type="text/javascript" src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
 <script type="text/javascript" src="/js/option.js"></script>
 <html>

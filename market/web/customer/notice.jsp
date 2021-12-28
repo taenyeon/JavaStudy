@@ -3,7 +3,7 @@
 <%@ page import="com.tech.db.DBCon" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/member/header.jsp" %>
+<%@include file="/GuroMember/header.jsp" %>
 <html>
 <head>
     <title>Title</title>

@@ -3,7 +3,7 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="com.tech.db.DBCon" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@include file="/member/header.jsp"%>
+<%@include file="/GuroMember/header.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

@@ -4,7 +4,7 @@
 <%@ page import="java.io.FileInputStream" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/member/header.jsp" %>
+<%@include file="/GuroMember/header.jsp" %>
 <html>
 <head>
     <title>Title</title>

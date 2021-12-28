@@ -24,7 +24,7 @@ public class Mission_MemberLoginProController implements Controller {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('아이디 또는 비밀번호를 입력하지 않았습니다.'); location.href='index.jsp'</script>");
         } else {
-            PreparedStatement pstmt = con.prepareStatement("select pwd from GOOTTUSER where ID = ?");
+            PreparedStatement pstmt = con.prepareStatement("select pwd from SURVEYUSER where ID = ?");
             pstmt.setString(1, id);
             ResultSet rs = null;
             try {

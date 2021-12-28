@@ -10,43 +10,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PostDao {
-    public List<Post> postList() throws SQLException, ClassNotFoundException {
-        Connection con = DBCon.getConnection();
-        List<Post> postList = new ArrayList<>();
-        String sql = "select " +
-                "hire_post_num," +
-                " HIRE_POST_NAME, " +
-                " COM_NAME," +
-                " APPLY_CONDITION," +
-                " WORK_CONDITION," +
-                " CATEGORY, " +
-                " to_char(post_date,'\"\"YYYY\"년 \"MM\"월 \"DD\"일\"') as post_date," +
-                " to_char(END_DATE,'\"\"YYYY\"년 \"MM\"월 \"DD\"일\"') as end_date" +
-                " from JOBDJ_TY " +
-                "order by HIRE_POST_NUM " +
-                "desc ";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery();
-        while (rs.next()) {
-            Post post = new Post();
-
-            Map<String, String> workConditionMap = getWorkConidtionMap(rs);
-            Map<String, String> applyConditionMap = getApplyConditionMap(rs);
-            List<String> categorys = getCategorys(rs);
-            post.setHire_post_num(rs.getInt("hire_post_num"));
-            post.setHire_post_name(rs.getString("hire_post_name"));
-            post.setCom_name(rs.getString("com_name"));
-            post.setApply_condition(applyConditionMap);
-            post.setWork_condition(workConditionMap);
-            post.setCategory(categorys);
-            post.setPost_date(rs.getString("post_date"));
-            post.setEnd_date(rs.getString("end_date"));
-            postList.add(post);
-            System.out.println("rs = " + rs.getString("com_name"));
-        }
-
-        return postList;
-    }
 
 
     public Post post(String postNum) throws SQLException, ClassNotFoundException {
@@ -90,11 +53,47 @@ public class PostDao {
 
         return post;
     }
+    public List<Post> postList() throws SQLException, ClassNotFoundException {
+        Connection con = DBCon.getConnection();
+        List<Post> postList = new ArrayList<>();
+        String sql = "select " +
+                "hire_post_num," +
+                " HIRE_POST_NAME, " +
+                " COM_NAME," +
+                " APPLY_CONDITION," +
+                " WORK_CONDITION," +
+                " CATEGORY, " +
+                " to_char(post_date,'\"\"YYYY\"년 \"MM\"월 \"DD\"일\"') as post_date," +
+                " to_char(END_DATE,'\"\"YYYY\"년 \"MM\"월 \"DD\"일\"') as end_date" +
+                " from JOBDJ_TY " +
+                "order by HIRE_POST_NUM " +
+                "desc ";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            Post post = new Post();
+
+            Map<String, String> workConditionMap = getWorkConidtionMap(rs);
+            Map<String, String> applyConditionMap = getApplyConditionMap(rs);
+            List<String> categorys = getCategorys(rs);
+            post.setHire_post_num(rs.getInt("hire_post_num"));
+            post.setHire_post_name(rs.getString("hire_post_name"));
+            post.setCom_name(rs.getString("com_name"));
+            post.setApply_condition(applyConditionMap);
+            post.setWork_condition(workConditionMap);
+            post.setCategory(categorys);
+            post.setPost_date(rs.getString("post_date"));
+            post.setEnd_date(rs.getString("end_date"));
+            postList.add(post);
+            System.out.println("rs = " + rs.getString("com_name"));
+        }
+
+        return postList;
+    }
 
     private List<String> getCategorys(ResultSet rs) throws SQLException {
         String category = rs.getString("category");
-        List<String> categorys = Arrays.asList(category.split(","));
-        return categorys;
+        return Arrays.asList(category.split(","));
     }
 
     private Map<String, String> getApplyConditionMap(ResultSet rs) throws SQLException {
